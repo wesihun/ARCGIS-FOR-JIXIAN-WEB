@@ -13,7 +13,6 @@ public class MyController
     @Autowired
     UserMapper userMapper;
 
-
     @RequestMapping("getUser")
     @ResponseBody
     public String getUser()
@@ -21,7 +20,6 @@ public class MyController
         User u = new User();
         u.setIdd(1);
         u.setReal_name("tom");
-
 
         //List<User> list = userMapper.queryAll(1, 2);
         List<User> list = userMapper.queryAll_2(u);
