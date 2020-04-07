@@ -3,12 +3,13 @@ import com.wt.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Component
 @Mapper
-@Repository
 public interface UserMapper
 {
     @Select("select * from tb_user where id= #{1}")
