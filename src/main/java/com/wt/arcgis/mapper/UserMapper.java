@@ -1,11 +1,12 @@
-package com.wt.arcgis;
-import com.wt.pojo.User;
+package com.wt.arcgis.mapper;
+import com.wt.arcgis.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 
 @Component
 @Mapper

@@ -1,4 +1,4 @@
-package com.wt.pojo;
+package com.wt.arcgis.pojo;
 
 public class User
 {
