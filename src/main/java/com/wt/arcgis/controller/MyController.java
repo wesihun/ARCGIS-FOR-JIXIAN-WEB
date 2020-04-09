@@ -12,7 +12,7 @@ public class MyController
     @Autowired
     UserMapper userMapper;
 
-    @RequestMapping("getUser")
+    @RequestMapping("login")
     public String getUser()
     {
        
