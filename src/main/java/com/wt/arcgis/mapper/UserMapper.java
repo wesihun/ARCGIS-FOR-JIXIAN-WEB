@@ -12,6 +12,19 @@ import java.util.List;
 @Mapper
 public interface UserMapper
 {
+    @Select("select * from tb_user where username=#{username} and password=#{password} and state=1")
+    public User getUserByAccount(User user);
+
+    @Select("")
+    public User getUserInfo(User user);
+
+
+
+
+
+
+
+
     @Select("select * from tb_user where id= #{1}")
     public List<User> queryAll(int id, int real_name);
 

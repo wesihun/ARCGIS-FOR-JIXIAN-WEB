@@ -42,7 +42,7 @@ class MyFilter implements Filter{
             return;
         }
 
-        if(null == session.getAttribute("username")){
+        if(null == session.getAttribute("user")){
             String json = "{" + '"' + "result" + '"' + ":" + '"' + "error" + '"' + "}";
 
             PrintWriter out = response.getWriter();
