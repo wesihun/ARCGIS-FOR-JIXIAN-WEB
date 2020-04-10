@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class MyController
-{
+public class MyController{
     @Autowired
     UserMapper userMapper;
 
     @RequestMapping("login")
-    public String getUser(User user, HttpSession session)//登录
-    {
+    public String getUser(User user, HttpSession session){//登录
         User resultUser = userMapper.getUserByAccount(user);
 
         String json = "{" + '"' + "result" + '"' + ":" + '"' + "fail" + '"' + "}";
@@ -37,12 +35,10 @@ public class MyController
     }
 
     @RequestMapping("getUserInfo")
-    public List<User> getUserInfo(HttpSession session){
+    public List<User> getUserInfo(HttpSession session){//取得用户完整信息
         User user = (User)session.getAttribute("user");
 
         List<User> listUser = userMapper.getUserInfo(user);
-
-        System.out.println(listUser);
 
         return listUser;
     }
