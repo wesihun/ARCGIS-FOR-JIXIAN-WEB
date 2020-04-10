@@ -1,5 +1,7 @@
 package com.wt.arcgis.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.wt.arcgis.mapper.UserMapper;
@@ -35,12 +37,14 @@ public class MyController
     }
 
     @RequestMapping("getUserInfo")
-    public User getUserInfo(HttpSession session){
+    public List<User> getUserInfo(HttpSession session){
         User user = (User)session.getAttribute("user");
 
-        User resultUser = userMapper.getUserInfo(user);
+        List<User> listUser = userMapper.getUserInfo(user);
 
-        return resultUser;
+        System.out.println(listUser);
+
+        return listUser;
     }
 
 
