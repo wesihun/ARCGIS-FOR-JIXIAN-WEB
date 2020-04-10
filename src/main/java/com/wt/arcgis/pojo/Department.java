@@ -1,12 +1,15 @@
 package com.wt.arcgis.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Department{
     private int departmentid;
     private String departmentname;
     private int parentid;
     private Date createtime;
+    private List<Department> subDepartment;
+    
 
     public int getDepartmentid() {
         return departmentid;
@@ -38,6 +41,14 @@ public class Department{
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public List<Department> getSubDepartment() {
+        return subDepartment;
+    }
+
+    public void setSubDepartment(List<Department> subDepartment) {
+        this.subDepartment = subDepartment;
     }
     
     

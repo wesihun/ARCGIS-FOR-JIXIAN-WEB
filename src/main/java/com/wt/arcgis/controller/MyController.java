@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.wt.arcgis.mapper.UserMapper;
+import com.wt.arcgis.pojo.Department;
 import com.wt.arcgis.pojo.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,20 @@ public class MyController{
         return listUser;
     }
 
+    @RequestMapping("getAllDepartment")
+    public List<Department> getAllDepartment(){
+
+        List<Department> departmentList = userMapper.getRootDepartment();
+        return departmentList;
+    }
 
 
+    public List<Department> getSubDepartment(List<Department> departmentList, int pid){
+
+        for(int i=0; i<departmentList.size(); i++){
+        }
+
+    }
 
 
 
