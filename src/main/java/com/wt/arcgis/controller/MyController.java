@@ -35,8 +35,7 @@ public class MyController
     }
 
     @RequestMapping("getUserInfo")
-    public User getUserInfo(HttpSession session)
-    {
+    public User getUserInfo(HttpSession session){
         User user = (User)session.getAttribute("user");
 
         User resultUser = userMapper.getUserInfo(user);
