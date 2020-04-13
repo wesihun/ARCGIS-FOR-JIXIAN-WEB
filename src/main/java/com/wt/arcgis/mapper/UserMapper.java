@@ -23,15 +23,7 @@ public interface UserMapper
     public List<Department> getRootDepartment();//根部门
 
     @Select("select * from tb_department where parentid=#{1}")
-    public List<Department> getSubDepartment(int pid);
-
-
-
-    @Select("select * from tb_user where id= #{1}")
-    public List<User> queryAll(int id, int real_name);
-
-    @Insert("INSERT INTO student(id,name) VALUES(#{id}, #{name})")
-    public void insertStudent(User user);
+    public List<Department> getSubDepartment(int pid);//根据PID取得子部门
 
 
 
