@@ -1,11 +1,13 @@
 package com.wt.arcgis.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Menue {
     private int menueid;
     private String menuename;
     private int parentmenueid;
+    private List<Menue> subMenue;
     private Date createtime;
 
     public int getMenueid() {
@@ -38,6 +40,14 @@ public class Menue {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public List<Menue> getSubMenue() {
+        return subMenue;
+    }
+
+    public void setSubMenue(List<Menue> subMenue) {
+        this.subMenue = subMenue;
     }
 
     

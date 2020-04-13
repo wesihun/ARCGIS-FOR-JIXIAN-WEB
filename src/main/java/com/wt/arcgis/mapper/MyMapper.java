@@ -1,5 +1,7 @@
 package com.wt.arcgis.mapper;
+
 import com.wt.arcgis.pojo.Department;
+import com.wt.arcgis.pojo.Menue;
 import com.wt.arcgis.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -23,6 +25,12 @@ public interface MyMapper
 
     @Select("select * from tb_department where parentid=#{1}")
     public List<Department> getSubDepartment(int pid);//根据PID取得子部门
+
+    @Select("select * from tb_menue where parentmenueid is null;")
+    public List<Menue> getRootMenue();//根菜单
+
+    @Select("select * from tb_menue where parentmenueid=#{1}")
+    public List<Menue> getSubMenue(int pid);//子菜单
 
 
 
