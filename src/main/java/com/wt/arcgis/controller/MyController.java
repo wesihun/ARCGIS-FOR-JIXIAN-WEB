@@ -1,5 +1,6 @@
 package com.wt.arcgis.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -44,19 +45,45 @@ public class MyController{
         return listUser;
     }
 
-    @RequestMapping("getAllDepartment")
-    public List<Department> getAllDepartment(){
 
-        List<Department> departmentList = userMapper.getRootDepartment();
-        return departmentList;
+
+    
+    @RequestMapping(value="getDepartment", produces="application/json;charset=utf-8")
+    public List<Department> getDepartment(){//取得部门
+        List<Department> root =  new ArrayList<Department>();
+
+        List<Department> listDepartment =  userMapper.getRootDepartment();
+
+        for(int i=0; i<listDepartment.size(); i++){
+            Department rootDepartment = listDepartment.get(i);
+
+            rootDepartment.setSubDepartment(this.getSubDepartment(rootDepartment));
+
+            root.add(rootDepartment);
+        }  
+
+        return root;
     }
 
+    public List<Department> getSubDepartment(Department rootDepartment){//递归部门
+        List<Department> subDepartmentList = new ArrayList<Department>();
+        List<Department> subList = userMapper.getSubDepartment(rootDepartment.getDepartmentid());
+       
+        if(subList == null){
+            return subDepartmentList;
+        }else{
+           
+            for(int i=0; i<subList.size(); i++){
+                Department subDepartment = subList.get(i);
+               
+                subDepartment.setSubDepartment(this.getSubDepartment(subDepartment));
+                subDepartmentList.add(subDepartment);
+            }
+        }
 
-    public List<Department> getSubDepartment(List<Department> departmentList, int pid){
-
-       return null;
-
+        return subDepartmentList;
     }
+
 
 
 
