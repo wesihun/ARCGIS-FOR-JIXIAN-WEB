@@ -54,8 +54,7 @@ public class MyController{
 
     public List<Department> getSubDepartment(List<Department> departmentList, int pid){
 
-        for(int i=0; i<departmentList.size(); i++){
-        }
+       return null;
 
     }
 
