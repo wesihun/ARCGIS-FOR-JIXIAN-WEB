@@ -1,7 +1,6 @@
 package com.wt.arcgis.mapper;
 import com.wt.arcgis.pojo.Department;
 import com.wt.arcgis.pojo.User;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Component
 @Mapper
-public interface UserMapper
+public interface MyMapper
 {
     @Select("select * from tb_user where username=#{username} and password=#{password} and state=1")
     public User getUserByAccount(User user);//根据用户名密码取得简单用户信息
