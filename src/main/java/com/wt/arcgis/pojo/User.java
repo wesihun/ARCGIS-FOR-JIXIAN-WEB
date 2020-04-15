@@ -13,7 +13,7 @@ public class User
    private String password;
    private String realname;
    private String gender;
-   private String telephonne;
+   private String telephone;
    private Date createtime;
    private int state;
 
@@ -89,13 +89,6 @@ public class User
        this.gender = gender;
    }
 
-   public String getTelephonne() {
-       return telephonne;
-   }
-
-   public void setTelephonne(String telephonne) {
-       this.telephonne = telephonne;
-   }
 
    public Date getCreatetime() {
        return createtime;
@@ -112,6 +105,15 @@ public class User
    public void setState(int state) {
        this.state = state;
    }
+
+   public String getTelephone() {
+       return telephone;
+   }
+
+   public void setTelephone(String telephone) {
+       this.telephone = telephone;
+   }
+
 
    
 }

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.activation.MimetypesFileTypeMap;
@@ -21,6 +22,7 @@ import com.wt.arcgis.pojo.Role;
 import com.wt.arcgis.pojo.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -233,10 +235,44 @@ public class MyController {
     }
 
     @RequestMapping("getPost")
-    public List<Post> getPost(){
+    public List<Post> getPost(){//岗位
         List<Post> postList = myMapper.getPost();
 
         return postList;
+    }
+
+  
+    @RequestMapping("regist")
+    @Transactional(rollbackFor=Exception.class)
+    public String regist(User user) throws RuntimeException {//注册
+
+        System.out.println(new Date());
+
+        String json = "{" + '"' + "result" + '"' + ":" + '"' + "success" + '"' + "}";
+        User checkUser = myMapper.getUserByAccountNoState(user); //账户重复
+        if(null !=checkUser){
+            json = "{" + '"' + "result" + '"' + ":" + '"' + "repeat" + '"' + "}";
+            return json;
+        }
+
+
+        user.setCreatetime(new Date());
+
+        try{
+            myMapper.insertUser(user);
+            User savedUser = myMapper.getUserByAccountNoState(user);
+            user.setUserid(savedUser.getUserid());
+
+            myMapper.insertUserRole(user);
+        }catch(Exception e){
+            e.printStackTrace();
+            json = "{" + '"' + "result" + '"' + ":" + '"' + "fail" + '"' + "}";
+            throw new RuntimeException();
+        }
+        finally{
+            return json;
+        }
+        
     }
 
 

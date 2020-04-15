@@ -38,7 +38,7 @@ class MyFilter implements Filter{
         String path = request.getContextPath();
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
-        if(url.endsWith("login") || url.endsWith("getRole") ||url.endsWith("getPost") ||url.endsWith("getUserInfo") ){
+        if(url.endsWith("login") || url.endsWith("getRole") ||url.endsWith("getPost") ||url.endsWith("getUserInfo") ||url.endsWith("getDepartment")||url.endsWith("regist") ){
             filterChain.doFilter(servletRequest,servletResponse);//放行
             return;
         }
