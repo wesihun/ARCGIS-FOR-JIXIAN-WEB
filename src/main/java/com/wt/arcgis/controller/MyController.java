@@ -232,6 +232,7 @@ public class MyController {
         return roleList;
     }
 
+    @RequestMapping("getPost")
     public List<Post> getPost(){
         List<Post> postList = myMapper.getPost();
 
