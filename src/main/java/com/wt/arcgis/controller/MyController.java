@@ -16,15 +16,19 @@ import com.wt.arcgis.Config;
 import com.wt.arcgis.mapper.MyMapper;
 import com.wt.arcgis.pojo.Department;
 import com.wt.arcgis.pojo.Menue;
+import com.wt.arcgis.pojo.Post;
+import com.wt.arcgis.pojo.Role;
 import com.wt.arcgis.pojo.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600, allowCredentials="true")
 public class MyController {
     @Autowired
     MyMapper myMapper;
@@ -32,9 +36,9 @@ public class MyController {
     @Autowired
     Config config;
 
-    @RequestMapping("login")
-    public String getUser(final User user, final HttpSession session) {// 登录
-        final User resultUser = myMapper.getUserByAccount(user);
+    @RequestMapping(value="login", produces = "application/json;charset=utf-8")
+    public String getUser(User user,  HttpSession session) {// 登录
+        User resultUser = myMapper.getUserByAccount(user);
 
         String json = "{" + '"' + "result" + '"' + ":" + '"' + "fail" + '"' + "}";
 
@@ -44,28 +48,30 @@ public class MyController {
             session.setAttribute("user", resultUser);
             session.setMaxInactiveInterval(60 * 30);
             json = "{" + '"' + "result" + '"' + ":" + '"' + "success" + '"' + "}";
+
+
             return json;
         }
 
     }
 
-    @RequestMapping("getUserInfo")
-    public List<User> getUserInfo(final HttpSession session) {// 取得用户完整信息
-        final User user = (User) session.getAttribute("user");
+    @RequestMapping(value = "getUserInfo", produces = "application/json;charset=utf-8")
+    public List<User> getUserInfo(HttpSession session) {// 取得用户完整信息
+        User user = (User) session.getAttribute("user");
 
-        final List<User> listUser = myMapper.getUserInfo(user);
+        List<User> listUser = myMapper.getUserInfo(user);
 
         return listUser;
     }
 
     @RequestMapping(value = "getDepartment", produces = "application/json;charset=utf-8")
     public List<Department> getDepartment() {// 取得部门
-        final List<Department> root = new ArrayList<Department>();
+        List<Department> root = new ArrayList<Department>();
 
-        final List<Department> listDepartment = myMapper.getRootDepartment();
+        List<Department> listDepartment = myMapper.getRootDepartment();
 
         for (int i = 0; i < listDepartment.size(); i++) {
-            final Department rootDepartment = listDepartment.get(i);
+            Department rootDepartment = listDepartment.get(i);
 
             rootDepartment.setSubDepartment(this.getSubDepartment(rootDepartment));
 
@@ -75,16 +81,16 @@ public class MyController {
         return root;
     }
 
-    public List<Department> getSubDepartment(final Department rootDepartment) {// 递归部门
-        final List<Department> subDepartmentList = new ArrayList<Department>();
-        final List<Department> subList = myMapper.getSubDepartment(rootDepartment.getDepartmentid());
+    public List<Department> getSubDepartment(Department rootDepartment) {// 递归部门
+        List<Department> subDepartmentList = new ArrayList<Department>();
+        List<Department> subList = myMapper.getSubDepartment(rootDepartment.getDepartmentid());
 
         if (subList == null) {
             return subDepartmentList;
         } else {
 
             for (int i = 0; i < subList.size(); i++) {
-                final Department subDepartment = subList.get(i);
+                Department subDepartment = subList.get(i);
 
                 subDepartment.setSubDepartment(this.getSubDepartment(subDepartment));
                 subDepartmentList.add(subDepartment);
@@ -96,12 +102,12 @@ public class MyController {
 
     @RequestMapping(value = "getMenue", produces = "application/json;charset=utf-8")
     public List<Menue> getMenue() {// 取得菜单
-        final List<Menue> root = new ArrayList<Menue>();
+        List<Menue> root = new ArrayList<Menue>();
 
-        final List<Menue> listMenue = myMapper.getRootMenue();
+        List<Menue> listMenue = myMapper.getRootMenue();
 
         for (int i = 0; i < listMenue.size(); i++) {
-            final Menue rootMenue = listMenue.get(i);
+            Menue rootMenue = listMenue.get(i);
 
             rootMenue.setSubMenue(this.getSubMenue(rootMenue));
 
@@ -111,16 +117,16 @@ public class MyController {
         return root;
     }
 
-    public List<Menue> getSubMenue(final Menue rootMenue) {// 递归菜单
-        final List<Menue> subMenueList = new ArrayList<Menue>();
-        final List<Menue> subList = myMapper.getSubMenue(rootMenue.getMenueid());
+    public List<Menue> getSubMenue(Menue rootMenue) {// 递归菜单
+        List<Menue> subMenueList = new ArrayList<Menue>();
+        List<Menue> subList = myMapper.getSubMenue(rootMenue.getMenueid());
 
         if (subList == null) {
             return null;
         } else {
 
             for (int i = 0; i < subList.size(); i++) {
-                final Menue subMenue = subList.get(i);
+                Menue subMenue = subList.get(i);
 
                 subMenue.setSubMenue(this.getSubMenue(subMenue));
                 subMenueList.add(subMenue);
@@ -131,22 +137,22 @@ public class MyController {
     }
 
     @RequestMapping(value = "upload", produces = "application/json;charset=utf-8") // 单文件上传
-    public String upload(@RequestParam("file") final MultipartFile multipartFile)
+    public String upload(@RequestParam("file") MultipartFile multipartFile)
             throws IllegalStateException, IOException {
         if (multipartFile.isEmpty()) {
             return "no file";
         }
 
-        final double MB = multipartFile.getSize() / 1024 / 1024.0;
+        double MB = multipartFile.getSize() / 1024 / 1024.0;
         System.out.println("MB:" + MB);
 
-        final String folder = config.getFile_dir();
+        String folder = config.getFile_dir();
 
-        final String upFileName = multipartFile.getOriginalFilename();
+        String upFileName = multipartFile.getOriginalFilename();
 
-        final String path = folder + upFileName;
+        String path = folder + upFileName;
 
-        final File myFile = new File(path);
+        File myFile = new File(path);
 
         if (!myFile.getParentFile().exists()) {
             myFile.getParentFile().mkdirs();
@@ -158,24 +164,24 @@ public class MyController {
     }
 
     @RequestMapping(value = "uploadMulty", produces = "application/json;charset=utf-8")
-    public String uploadMulty(@RequestParam("file") final MultipartFile[] multipartFile)
+    public String uploadMulty(@RequestParam("file") MultipartFile[] multipartFile)
             throws IllegalStateException, IOException {// 多文件上传
 
-        final String folder = config.getFile_dir();
+        String folder = config.getFile_dir();
 
         for (int i = 0; i < multipartFile.length; i++) {
-            final MultipartFile sigleFile = multipartFile[i];
+            MultipartFile sigleFile = multipartFile[i];
 
             if (sigleFile.isEmpty()) {
                 return "no single file";
             }
 
-            final double MB = sigleFile.getSize() / 1024 / 1024.0;
+            double MB = sigleFile.getSize() / 1024 / 1024.0;
             System.out.println("MB:" + MB);
 
-            final String upFileName = sigleFile.getOriginalFilename();
-            final String path = folder + upFileName;
-            final File myFile = new File(path);
+            String upFileName = sigleFile.getOriginalFilename();
+            String path = folder + upFileName;
+            File myFile = new File(path);
 
             if (!myFile.getParentFile().exists()) {
                 myFile.getParentFile().mkdirs();
@@ -204,8 +210,8 @@ public class MyController {
          response.setHeader("Content-Disposition", "attachment;filename=" + hehe);
 
         // 发送给客户端的数据
-        final OutputStream outputStream = response.getOutputStream();
-        final byte[] buff = new byte[1024];
+         OutputStream outputStream = response.getOutputStream();
+         byte[] buff = new byte[1024];
         BufferedInputStream bis = null;
         // 读取filename
         bis = new BufferedInputStream(new FileInputStream(new File(filename)));
@@ -217,6 +223,20 @@ public class MyController {
         }
     }
 
+
+    @RequestMapping("getRole")
+    public List<Role> getRole(){//角色
+
+        List<Role> roleList =  myMapper.getRole();
+
+        return roleList;
+    }
+
+    public List<Post> getPost(){
+        List<Post> postList = myMapper.getPost();
+
+        return postList;
+    }
 
 
 

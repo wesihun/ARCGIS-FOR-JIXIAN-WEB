@@ -33,14 +33,16 @@ class MyFilter implements Filter{
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
 
+
         String url = request.getRequestURI();
         String path = request.getContextPath();
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
-        if(url.endsWith("login")){
+        if(url.endsWith("login") || url.endsWith("getRole") ||url.endsWith("getPost") ||url.endsWith("getUserInfo") ){
             filterChain.doFilter(servletRequest,servletResponse);//放行
             return;
         }
+
 
         if(null == session.getAttribute("user")){
             String json = "{" + '"' + "result" + '"' + ":" + '"' + "error" + '"' + "}";
