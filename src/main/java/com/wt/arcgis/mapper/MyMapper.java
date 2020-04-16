@@ -54,9 +54,6 @@ public interface MyMapper
 
     @Insert("insert into tb_user_role(roleid,userid) values(#{role.roleid},#{userid}) ")
     public int insertUserRole(User user);//用户角色中间表
-
-
-
-
+    
 
 }
