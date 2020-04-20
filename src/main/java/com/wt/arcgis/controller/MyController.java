@@ -274,6 +274,14 @@ public class MyController {
     }
 
 
+    @RequestMapping(value = "getSecondCategory", produces = "application/json;charset=utf-8")
+    public List<Menue> getSecondCategory(Menue menue){//取得目录树点击的二级地类编码
+        List<Menue> menueList = this.getSubMenue(menue);
+
+        return menueList;
+    }
+
+
 
 
 }
