@@ -246,8 +246,6 @@ public class MyController {
     @Transactional(rollbackFor=Exception.class)
     public String regist(User user) throws RuntimeException {//注册
 
-        System.out.println(new Date());
-
         String json = "{" + '"' + "result" + '"' + ":" + '"' + "success" + '"' + "}";
         User checkUser = myMapper.getUserByAccountNoState(user); //账户重复
         if(null !=checkUser){
