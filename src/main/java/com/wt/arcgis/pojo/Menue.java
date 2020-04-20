@@ -7,6 +7,8 @@ public class Menue {
     private int menueid;
     private String menuename;
     private int parentmenueid;
+    private String firstcategory;
+    private String secondcategory;
     private List<Menue> subMenue;
     private Date createtime;
 
@@ -48,6 +50,22 @@ public class Menue {
 
     public void setSubMenue(List<Menue> subMenue) {
         this.subMenue = subMenue;
+    }
+
+    public String getFirstcategory() {
+        return firstcategory;
+    }
+
+    public void setFirstcategory(String firstcategory) {
+        this.firstcategory = firstcategory;
+    }
+
+    public String getSecondcategory() {
+        return secondcategory;
+    }
+
+    public void setSecondcategory(String secondcategory) {
+        this.secondcategory = secondcategory;
     }
 
     
