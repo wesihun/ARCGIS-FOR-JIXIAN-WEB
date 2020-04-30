@@ -240,7 +240,6 @@ public class MyController {
 
         return postList;
     }
-
   
     @RequestMapping("regist")
     @Transactional(rollbackFor=Exception.class)
@@ -252,7 +251,6 @@ public class MyController {
             json = "{" + '"' + "result" + '"' + ":" + '"' + "repeat" + '"' + "}";
             return json;
         }
-
 
         user.setCreatetime(new Date());
 
@@ -270,9 +268,7 @@ public class MyController {
         finally{
             return json;
         }
-        
     }
-
 
     @RequestMapping(value = "getSecondCategory", produces = "application/json;charset=utf-8")
     public List<Menue> getSecondCategory(Menue menue){//取得目录树点击的二级地类编码
@@ -287,6 +283,9 @@ public class MyController {
 
         return resultMenue;
     }
+
+
+    
 
 
 
