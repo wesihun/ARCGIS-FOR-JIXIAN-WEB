@@ -281,6 +281,13 @@ public class MyController {
         return menueList;
     }
 
+    @RequestMapping(value = "getMenueByMenueId", produces = "application/json;charset=utf-8")
+    public Menue getMenueByMenueId(Menue menue){//根据menueid取得menue
+        Menue resultMenue = myMapper.getMenueByMenueId(menue);
+
+        return resultMenue;
+    }
+
 
 
 

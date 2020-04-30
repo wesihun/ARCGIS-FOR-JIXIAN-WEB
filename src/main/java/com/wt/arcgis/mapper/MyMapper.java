@@ -48,12 +48,16 @@ public interface MyMapper
     @Select("select * from tb_post ")
     public List<Post> getPost();
 
-    
     @Insert("insert into tb_user(departmentid,postid,username,password,realname,gender,telephone,state,createtime) values(#{department.departmentid},#{post.postid},#{username},#{password},#{realname},#{gender},#{telephone},#{state},#{createtime}) ")
     public int insertUser(User user);//添加用户
 
     @Insert("insert into tb_user_role(roleid,userid) values(#{role.roleid},#{userid}) ")
     public int insertUserRole(User user);//用户角色中间表
+
+    @Select("select * from tb_menue where menueid=#{menueid}")
+    public Menue getMenueByMenueId(Menue menue);
+
+
     
 
 }
