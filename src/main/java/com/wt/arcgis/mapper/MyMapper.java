@@ -1,5 +1,6 @@
 package com.wt.arcgis.mapper;
 
+import com.wt.arcgis.pojo.Administration;
 import com.wt.arcgis.pojo.Banner;
 import com.wt.arcgis.pojo.Department;
 import com.wt.arcgis.pojo.Menue;
@@ -10,8 +11,10 @@ import com.wt.arcgis.pojo.User;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -56,6 +59,12 @@ public interface MyMapper
 
     @Select("select * from tb_menue where menueid=#{menueid}")
     public Menue getMenueByMenueId(Menue menue);
+
+    @Select("select * from tb_addressinfo where ParentId=0" )
+    public List<Administration> getRootAdministration();
+
+    @Select("select * from tb_addressinfo where ParentId=#{parentId}")
+    public List<Administration> getSubAdministrations(@Param("parentId") int parentId);
 
 
     

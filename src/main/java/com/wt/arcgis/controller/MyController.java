@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.wt.arcgis.Config;
 import com.wt.arcgis.mapper.MyMapper;
+import com.wt.arcgis.pojo.Administration;
 import com.wt.arcgis.pojo.Department;
 import com.wt.arcgis.pojo.Menue;
 import com.wt.arcgis.pojo.Post;
@@ -285,7 +286,43 @@ public class MyController {
     }
 
 
-    
+    @RequestMapping(value = "getAdministration", produces = "application/json;charset=utf-8")
+    public List<Administration> getAdministration() {// 取得行政区
+        List<Administration> root = new ArrayList<Administration>();
+
+        List<Administration> listAdministrations = myMapper.getRootAdministration();
+
+        for (int i = 0; i < listAdministrations.size(); i++) {
+            Administration rootAdministration = listAdministrations.get(i);
+
+            rootAdministration.setSubAdministrations(this.getSubAdministration(rootAdministration));
+
+            root.add(rootAdministration);
+        }
+
+        return root;
+    }
+
+    public List<Administration> getSubAdministration(Administration administration) {//递归行政区
+        List<Administration> subAdministrationList = new ArrayList<Administration>();
+        List<Administration> subList = myMapper.getSubAdministrations(administration.getId());
+
+        if (subList == null) {
+            return null;
+        } else {
+
+            for (int i = 0; i < subList.size(); i++) {
+                Administration subAdministration = subList.get(i);
+
+                subAdministration.setSubAdministrations(this.getSubAdministration(subAdministration));
+                subAdministrationList.add(subAdministration);
+            }
+        }
+
+        return subAdministrationList;
+    }
+
+
 
 
 
