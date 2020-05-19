@@ -322,7 +322,11 @@ public class MyController {
         return subAdministrationList;
     }
 
+    @RequestMapping(value="logOut", produces = "application/json;charset=utf-8")
+    public void logOut(HttpSession session) {// 退出
+        session.removeAttribute("user");
 
+    }
 
 
 
