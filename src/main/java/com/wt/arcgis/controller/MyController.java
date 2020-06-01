@@ -200,7 +200,7 @@ public class MyController {
     @RequestMapping("download")
     public void download(HttpServletResponse response) throws IOException {//下载
 
-        String requestFileName = "超详细Oracle教程.pdf";
+        String requestFileName = "xx.jpg";
         String filename = config.getFile_dir() + requestFileName;
 
          // 设置信息给客户端不解析
