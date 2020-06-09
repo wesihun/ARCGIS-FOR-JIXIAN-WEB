@@ -1,7 +1,6 @@
 package com.wt.arcgis.mapper;
 
 import com.wt.arcgis.pojo.Administration;
-import com.wt.arcgis.pojo.Banner;
 import com.wt.arcgis.pojo.Department;
 import com.wt.arcgis.pojo.Menue;
 import com.wt.arcgis.pojo.Post;
@@ -13,8 +12,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.type.JdbcType;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
