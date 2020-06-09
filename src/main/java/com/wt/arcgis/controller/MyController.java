@@ -15,12 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.wt.arcgis.Config;
 import com.wt.arcgis.mapper.MyMapper;
-import com.wt.arcgis.pojo.Administration;
-import com.wt.arcgis.pojo.Department;
-import com.wt.arcgis.pojo.Menue;
-import com.wt.arcgis.pojo.Post;
-import com.wt.arcgis.pojo.Role;
-import com.wt.arcgis.pojo.User;
+import com.wt.arcgis.pojo.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -328,6 +323,78 @@ public class MyController {
 
     }
 
+    @RequestMapping(value = "getSpecialMenue", produces = "application/json;charset=utf-8")
+    public List<SpecialMenue> getSpecialMenue() {// 取得专项菜单
+        List<SpecialMenue> root = new ArrayList<SpecialMenue>();
+
+        List<SpecialMenue> listMenue = myMapper.getRootSpecialMenue();
+
+        for (int i = 0; i < listMenue.size(); i++) {
+            SpecialMenue rootMenue = listMenue.get(i);
+
+            rootMenue.setSubSpecialMenue(this.getSubSpecialMenue(rootMenue));
+
+            root.add(rootMenue);
+        }
+
+        return root;
+    }
+
+    public List<SpecialMenue> getSubSpecialMenue(SpecialMenue rootMenue) {// 递归专项菜单
+        List<SpecialMenue> subMenueList = new ArrayList<SpecialMenue>();
+        List<SpecialMenue> subList = myMapper.getSubSpecialMenue(rootMenue.getId());
+
+        if (subList == null) {
+            return null;
+        } else {
+
+            for (int i = 0; i < subList.size(); i++) {
+                SpecialMenue subMenue = subList.get(i);
+
+                subMenue.setSubSpecialMenue(this.getSubSpecialMenue(subMenue));
+                subMenueList.add(subMenue);
+            }
+        }
+
+        return subMenueList;
+    }
+
+
+    @RequestMapping(value = "getSpecialMenueUpdate", produces = "application/json;charset=utf-8")
+    public List<SpecialMenue> getSpecialMenueUpdate() {// 取得专项更新菜单
+        List<SpecialMenue> root = new ArrayList<SpecialMenue>();
+
+        List<SpecialMenue> listMenue = myMapper.getRootSpecialMenueUpdate();
+
+        for (int i = 0; i < listMenue.size(); i++) {
+            SpecialMenue rootMenue = listMenue.get(i);
+
+            rootMenue.setSubSpecialMenue(this.getSubSpecialMenueUpdate(rootMenue));
+
+            root.add(rootMenue);
+        }
+
+        return root;
+    }
+
+    public List<SpecialMenue> getSubSpecialMenueUpdate(SpecialMenue rootMenue) {// 递归专项更新菜单
+        List<SpecialMenue> subMenueList = new ArrayList<SpecialMenue>();
+        List<SpecialMenue> subList = myMapper.getSubSpecialMenueUpdate(rootMenue.getId());
+
+        if (subList == null) {
+            return null;
+        } else {
+
+            for (int i = 0; i < subList.size(); i++) {
+                SpecialMenue subMenue = subList.get(i);
+
+                subMenue.setSubSpecialMenue(this.getSubSpecialMenueUpdate(subMenue));
+                subMenueList.add(subMenue);
+            }
+        }
+
+        return subMenueList;
+    }
 
 
 

@@ -1,12 +1,6 @@
 package com.wt.arcgis.mapper;
 
-import com.wt.arcgis.pojo.Administration;
-import com.wt.arcgis.pojo.Department;
-import com.wt.arcgis.pojo.Menue;
-import com.wt.arcgis.pojo.Post;
-import com.wt.arcgis.pojo.Resourcetype;
-import com.wt.arcgis.pojo.Role;
-import com.wt.arcgis.pojo.User;
+import com.wt.arcgis.pojo.*;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -62,6 +56,18 @@ public interface MyMapper
 
     @Select("select * from tb_addressinfo where ParentId=#{parentId}")
     public List<Administration> getSubAdministrations(@Param("parentId") int parentId);
+
+    @Select("select * from tb_special_menue where parentid is null;")
+    public List<SpecialMenue> getRootSpecialMenue();//根专项调查菜单
+
+    @Select("select * from tb_special_menue where parentid=#{parentid}")
+    public List<SpecialMenue> getSubSpecialMenue(@Param("parentid") int parentid);//子专项调查菜单
+
+    @Select("select * from tb_special_menue_update where parentid is null;")
+    public List<SpecialMenue> getRootSpecialMenueUpdate();//根专项调查更新菜单
+
+    @Select("select * from tb_special_menue_update where parentid=#{parentid}")
+    public List<SpecialMenue> getSubSpecialMenueUpdate(@Param("parentid") int parentid);//子专项调查更新菜单
 
 
     
