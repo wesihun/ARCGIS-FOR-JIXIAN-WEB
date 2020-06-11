@@ -10,7 +10,29 @@ public class SpecialMenue//装箱调查菜单
     private String menuename;
     private String serverpath;
     private Date createtime;
+    private String tablename;
+    private String shape;
     private List<SpecialMenue> subSpecialMenue;
+
+    public String getTablename()
+    {
+        return tablename;
+    }
+
+    public void setTablename(String tablename)
+    {
+        this.tablename = tablename;
+    }
+
+    public String getShape()
+    {
+        return shape;
+    }
+
+    public void setShape(String shape)
+    {
+        this.shape = shape;
+    }
 
     public List<SpecialMenue> getSubSpecialMenue()
     {
