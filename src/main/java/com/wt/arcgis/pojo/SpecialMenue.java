@@ -13,6 +13,17 @@ public class SpecialMenue//装箱调查菜单
     private String tablename;
     private String shape;
     private List<SpecialMenue> subSpecialMenue;
+    private String type;
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
 
     public String getTablename()
     {
