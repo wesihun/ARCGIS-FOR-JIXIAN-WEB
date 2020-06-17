@@ -11,6 +11,17 @@ public class AnalysisMenue//统计分析菜单
     private String type;
     private Date createtime;
     private List<AnalysisMenue> subAnalysisMenue;
+    private String tablename;
+
+    public String getTablename()
+    {
+        return tablename;
+    }
+
+    public void setTablename(String tablename)
+    {
+        this.tablename = tablename;
+    }
 
     public int getId()
     {
