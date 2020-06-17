@@ -69,6 +69,12 @@ public interface MyMapper
     @Select("select * from tb_special_menue_update where parentid=#{parentid}")
     public List<SpecialMenue> getSubSpecialMenueUpdate(@Param("parentid") int parentid);//子专项调查更新菜单
 
+    @Select("select * from tb_analysis_menue where parentid is null;")
+    public List<AnalysisMenue> getRootAnalysisMenue();//根统计分析菜单
+
+    @Select("select * from tb_analysis_menue where parentid=#{parentid}")
+    public List<AnalysisMenue> getSubAnalysisMenue(@Param("parentid") int parentid);//子统计分析菜单
+
 
     
 

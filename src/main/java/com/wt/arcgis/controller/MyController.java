@@ -396,6 +396,42 @@ public class MyController {
         return subMenueList;
     }
 
+    @RequestMapping(value = "getAnalysisMenue", produces = "application/json;charset=utf-8")
+    public List<AnalysisMenue> getAnalysisMenue() {// 取得统计分析菜单
+        List<AnalysisMenue> root = new ArrayList<AnalysisMenue>();
+
+        List<AnalysisMenue> listMenue = myMapper.getRootAnalysisMenue();
+
+        for (int i = 0; i < listMenue.size(); i++) {
+            AnalysisMenue rootMenue = listMenue.get(i);
+
+            rootMenue.setSubAnalysisMenue(this.getSubAnalysisMenue(rootMenue));
+
+            root.add(rootMenue);
+        }
+
+        return root;
+    }
+
+    public List<AnalysisMenue> getSubAnalysisMenue(AnalysisMenue rootMenue) {// 递归专项更新菜单
+        List<AnalysisMenue> subMenueList = new ArrayList<AnalysisMenue>();
+        List<AnalysisMenue> subList = myMapper.getSubAnalysisMenue(rootMenue.getId());
+
+        if (subList == null) {
+            return null;
+        } else {
+
+            for (int i = 0; i < subList.size(); i++) {
+                AnalysisMenue subMenue = subList.get(i);
+
+                subMenue.setSubAnalysisMenue(this.getSubAnalysisMenue(subMenue));
+                subMenueList.add(subMenue);
+            }
+        }
+
+        return subMenueList;
+    }
+
 
 
 }
