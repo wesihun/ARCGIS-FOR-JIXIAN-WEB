@@ -3,7 +3,7 @@ package com.wt.arcgis.pojo;
 import java.util.Date;
 import java.util.List;
 
-public class SpecialMenue//装箱调查菜单
+public class SpecialMenue//专项调查菜单
 {
     private int id;
     private int parentid;
